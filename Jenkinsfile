@@ -7,18 +7,18 @@ pipeline {
         stage('Clonar Repositório') {
             steps {
                 sh '''
-                    if [ -d HUB-DE-LEITURA/.git ]; then
-                        git -C HUB-DE-LEITURA pull
+                    if [ -d hub-de-leitura-integrado/.git ]; then
+                        git -C hub-de-leitura-integrado pull
                     else
-                        rm -rf HUB-DE-LEITURA
-                        git clone https://github.com/jasonsilvaa/HUB-DE-LEITURA.git
+                        rm -rf hub-de-leitura-integrado
+                        git clone https://github.com/jasonsilvaa/hub-de-leitura-integrado.git
                     fi
                 '''
             }
         }
         stage('Instalar dependências') {
             steps {
-                dir('HUB-DE-LEITURA') {
+                dir('hub-de-leitura-integrado') {
                     sh 'npm install'
                 }
                 sh 'npm install'
@@ -27,7 +27,7 @@ pipeline {
         stage('Executar testes') {
             steps {
                 sh '''
-                    cd HUB-DE-LEITURA
+                    cd hub-de-leitura-integrado
                     nohup npm start > ../app.log 2>&1 &
                     cd ..
                     sleep 15
