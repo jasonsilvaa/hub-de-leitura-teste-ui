@@ -40,19 +40,5 @@ pipeline {
         always {
             sh 'pkill -f "node" || true'
         }
-        failure {
-            emailext(
-                to: 'jason.silva@ebac.com.br',
-                subject: 'Falha no pipeline',
-                body: 'O pipeline falhou. Por favor, verifique o log para mais detalhes.'
-            )
-        }
-        success {
-            emailext(
-                to: 'jason.silva@ebac.com.br',
-                subject: 'Pipeline executado com sucesso',
-                body: 'O pipeline executou com sucesso. Por favor, verifique o log para mais detalhes.'
-            )
-        }
     }
 }
