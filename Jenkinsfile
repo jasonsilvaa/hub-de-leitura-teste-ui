@@ -6,7 +6,14 @@ pipeline {
     stages {
         stage('Clonar Repositório') {
             steps {
-                sh 'git clone https://github.com/jasonsilvaa/HUB-DE-LEITURA.git'
+                sh '''
+                    if [ -d HUB-DE-LEITURA/.git ]; then
+                        git -C HUB-DE-LEITURA pull
+                    else
+                        rm -rf HUB-DE-LEITURA
+                        git clone https://github.com/jasonsilvaa/HUB-DE-LEITURA.git
+                    fi
+                '''
             }
         }
         stage('Instalar dependências') {
